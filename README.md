@@ -1,4 +1,3 @@
-**\# please adapt the links of following badges:**
 ![tests](https://github.com/ghga-de/ghga-message-schemas/actions/workflows/unit_and_int_tests.yaml/badge.svg)
 [![codecov](https://codecov.io/gh/ghga-de/ghga-message-schemas/branch/main/graph/badge.svg?token=GYH99Y71CK)](https://codecov.io/gh/ghga-de/ghga-message-schemas)
 # GHGA Message Schemas
