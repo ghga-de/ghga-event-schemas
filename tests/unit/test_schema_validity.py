@@ -13,8 +13,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Utils for Fixture handling"""
+"""Check if all JSON schemas are valid"""
 
-from pathlib import Path
+import pytest
+from jsonschema.validators import validator_for
 
-BASE_DIR = Path(__file__).parent.resolve()
+from ghga_message_schemas import schemas
+
+from . import fixtures
+
+
+@pytest.mark.parametrize("schema_name", fixtures.SCHEMA_NAMES)
+def test_json_schemas_valid(schema_name: str):
+    """Validate if the schema dicts are valid JSON schemas."""
+    schema_dict = getattr(schemas, schema_name.upper())
+
+    validator = validator_for(schema_dict)
+    validator.check_schema(schema_dict)
