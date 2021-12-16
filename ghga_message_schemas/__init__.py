@@ -13,4 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""This sub-package collects any Data Access Object pattern-related code"""
+"""A package that collects schemas used for messaging between GHGA service."""
+
+__version__ = "0.1.0"
