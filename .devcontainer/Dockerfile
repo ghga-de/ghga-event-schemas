@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
 ENV PYTHONUNBUFFERED 1
 
 # Name of the python package, overwitten in docker-compose.yaml
-ARG USER_UID=my_microservice
+ARG USER_UID=ghga_message_schemas
 
 # Update args in docker-compose.yaml to set the UID/GID of the "vscode" user.
 ARG USER_UID=1000
@@ -24,7 +24,6 @@ RUN apt update \
 
 # Copy install and launcher script to bin:
 COPY ./dev_install /bin
-COPY ./dev_launcher /bin
 
 # make docker in docker work:
 # (https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use)
