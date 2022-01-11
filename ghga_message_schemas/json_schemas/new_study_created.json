@@ -52,7 +52,7 @@
       "$ref": "https://raw.githubusercontent.com/ghga-de/ghga-metadata-schema/main/artifacts/jsonschema/ghga.schema.json#/definitions/Study"
     },
     "timestamp": {
-      "description": "The time when the study was posted by the user.",
+      "description": "The time when the message was published.",
       "format": "date-time",
       "type": "string"
     }
