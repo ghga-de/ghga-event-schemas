@@ -57,9 +57,7 @@
         }
       },
       "required": [
-        "id",
-        "accession",
-        "format"
+        "id"
       ],
       "type": "object"
     },
