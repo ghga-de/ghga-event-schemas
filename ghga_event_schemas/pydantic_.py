@@ -143,7 +143,7 @@ class FileUploadValidationSuccess(BaseModel):
 
 
 class FileUploadValidationFailure(BaseModel):
-    """This event is triggered when an uploaded file validated the validation."""
+    """This event is triggered when an uploaded file failed to validate."""
 
     file_id: str = Field(
         ..., description="The public ID of the file as present in the metadata catalog."
