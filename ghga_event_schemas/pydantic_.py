@@ -94,7 +94,7 @@ class FileUploadValidationSuccess(BaseModel):
         ...,
         description="The size of the entire decrypted file content in bytes.",
     )
-    dencryption_secret_id: str = Field(
+    decryption_secret_id: str = Field(
         ...,
         description=(
             "The ID of the symmetic file encryption/decryption secret."
