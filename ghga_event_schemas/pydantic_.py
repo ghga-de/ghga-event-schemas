@@ -32,7 +32,9 @@ class MetadataSubmissionFiles(BaseModel):
         ..., description="The public ID of the file as present in the metadata catalog."
     )
     file_name: str = Field(
-        ..., description="Name of the file.", example="treatment_R1.fastq.gz"
+        ...,
+        description="The name of the file as it was submitted.",
+        example="treatment_R1.fastq.gz",
     )
     decrypted_size: int = Field(
         ...,
