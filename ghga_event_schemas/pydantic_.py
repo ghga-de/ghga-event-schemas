@@ -122,8 +122,8 @@ class FileUploadValidationSuccess(BaseModel):
         ...,
         description=(
             "The sizes of the file parts of the encrypted content (excluding the"
-            + " crypt4GH header) as used for the encryption_parts_md5 and the"
-            + " encryption_parts_sha256 in bytes. The same part size is recommended for"
+            + " crypt4gh envelope) as used for the encrypted_parts_md5 and the"
+            + " encrypted_parts_sha256 in bytes. The same part size is recommended for"
             + " moving that content."
         ),
     )
