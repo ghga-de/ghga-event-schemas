@@ -131,14 +131,14 @@ class FileUploadValidationSuccess(BaseModel):
         ...,
         description=(
             "MD5 checksums of file parts of the encrypted content (excluding the"
-            + " crypt4gh envelope."
+            + " crypt4gh envelope)."
         ),
     )
     encrypted_parts_sha256: list[str] = Field(
         ...,
         description=(
             "SHA-256 checksums of file parts of the encrypted content (excluding the"
-            + " crypt4gh envelope."
+            + " crypt4gh envelope)."
         ),
     )
     decrypted_sha256: str = Field(
