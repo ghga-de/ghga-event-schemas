@@ -121,7 +121,7 @@ class FileUploadValidationSuccess(BaseModel):
     encrypted_part_size: int = Field(
         ...,
         description=(
-            "The sizes of the file parts of the encrypted content (excluding the"
+            "The size of the file parts of the encrypted content (excluding the"
             + " crypt4gh envelope) as used for the encrypted_parts_md5 and the"
             + " encrypted_parts_sha256 in bytes. The same part size is recommended for"
             + " moving that content."
