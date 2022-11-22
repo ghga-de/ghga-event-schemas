@@ -118,7 +118,7 @@ class FileUploadValidationSuccess(BaseModel):
             + " crypt4GH envelope)."
         ),
     )
-    encrypted_part_sizes: list[int] = Field(
+    encrypted_part_size: int = Field(
         ...,
         description=(
             "The sizes of the file parts of the encrypted content (excluding the"
