@@ -33,7 +33,7 @@ class UploadDateModel(BaseModel):
     upload_date: str = Field(
         ...,
         description="The date and time when this file was uploaded."
-        + "String format should follow ISO 8601 as produced by datetime.utcnow().isoformat",
+        + "String format should follow ISO 8601 as produced by datetime.utcnow().isoformat()",
     )
 
     @validator("upload_date")
