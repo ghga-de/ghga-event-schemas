@@ -5,3 +5,5 @@ pytest.ini
 scripts/script_utils/__init__.py
 scripts/script_utils/cli.py
 scripts/update_config_docs.py
+.github/workflows/check_openapi_spec.yaml
+scripts/update_openapi_docs.py
