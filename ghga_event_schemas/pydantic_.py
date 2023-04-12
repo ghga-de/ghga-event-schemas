@@ -26,8 +26,10 @@ from pydantic import BaseModel, Field, validator
 from ghga_event_schemas.validation import validated_upload_date
 
 
-class DatasetFile(BaseModel):
-    """A file as that is part of a Dataset."""
+class MetadataDatasetFile(BaseModel):
+    """A file as that is part of a Dataset.
+    Only fields relevant to the WPS are included for now. May be extended.
+    """
 
     accession: str = Field(..., description="The file accession.")
     description: Optional[str] = Field(..., description="The description of the file.")
@@ -36,22 +38,28 @@ class DatasetFile(BaseModel):
     class Config:
         """Model config."""
 
+        title = "metadata_dataset_file"
         extra = "allow"
 
 
 class MetadataDatasetOverview(BaseModel):
-    """Overview of files contained in a dataset."""
+    """Overview of files contained in a dataset.
+    Only fields relevant to the WPS are included for now. May be extended.
+    """
 
     accession: str = Field(..., description="The dataset accession.")
     title: str = Field(..., description="The title of the dataset.")
     description: Optional[str] = Field(
         ..., description="The description of the dataset."
     )
-    files: list[DatasetFile] = Field(..., description="Files contained in the dataset.")
+    files: list[MetadataDatasetFile] = Field(
+        ..., description="Files contained in the dataset."
+    )
 
     class Config:
         """Model config."""
 
+        title = "metadata_dataset_overview"
         extra = "allow"
 
 
