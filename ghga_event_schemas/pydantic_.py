@@ -19,9 +19,40 @@ Please note, these pydantic-based schemas are the source of thruth for all other
 schema representations such as json-schema.
 """
 
+from typing import Optional
+
 from pydantic import BaseModel, Field, validator
 
 from ghga_event_schemas.validation import validated_upload_date
+
+
+class DatasetFile(BaseModel):
+    """A file as that is part of a Dataset."""
+
+    accession: str = Field(..., description="The file accession.")
+    description: Optional[str] = Field(..., description="The description of the file.")
+    file_extension: str = Field(..., description="The file extension.")
+
+    class Config:
+        """Model config."""
+
+        extra = "allow"
+
+
+class MetadataDatasetOverview(BaseModel):
+    """Overview of files contained in a dataset."""
+
+    accession: str = Field(..., description="The dataset accession.")
+    title: str = Field(..., description="The title of the dataset.")
+    description: Optional[str] = Field(
+        ..., description="The description of the dataset."
+    )
+    files: list[DatasetFile] = Field(..., description="Files contained in the dataset.")
+
+    class Config:
+        """Model config."""
+
+        extra = "allow"
 
 
 class UploadDateModel(BaseModel):
@@ -262,6 +293,7 @@ class FileDownloadServed(NonStagedFileRequested):
 
 # Lists event schemas (values) by event types (key):
 schema_registry: dict[str, type[BaseModel]] = {
+    "metadata_dataset_overview": MetadataDatasetOverview,
     "metadata_submission_upserted": MetadataSubmissionUpserted,
     "file_upload_received": FileUploadReceived,
     "file_upload_validation_success": FileUploadValidationSuccess,

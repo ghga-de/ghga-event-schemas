@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # Copyright 2021 - 2023 Universität Tübingen, DKFZ, EMBL, and Universität zu Köln
 # for the German Human Genome-Phenome Archive (GHGA)
 #
@@ -14,10 +12,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
-"""Setup script for pip. This setup configs are specified in the `setup.cfg` file"""
+"""Used to define the location of the main FastAPI app object."""
 
-import setuptools
+# flake8: noqa
+# pylint: skip-file
 
-if __name__ == "__main__":
-    setuptools.setup()
+# Please adapt to package structure:
+from my_microservice.api.main import app

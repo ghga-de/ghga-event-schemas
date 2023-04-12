@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Copyright 2021 - 2023 Universität Tübingen, DKFZ and EMBL
+# Copyright 2021 - 2023 Universität Tübingen, DKFZ, EMBL, and Universität zu Köln
 # for the German Human Genome-Phenome Archive (GHGA)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -58,7 +58,6 @@ EXCLUDE = [
     "LICENSE",  # is checked but not for the license header
     ".pre-commit-config.yaml",
     "docs",
-    "requirements.txt",
     ".vscode",
     ".mypy_cache",
     ".mypy.ini",
@@ -76,11 +75,13 @@ EXCLUDE = [
 EXCLUDE_ENDINGS = [
     "html",
     "ini",
+    "jinja",
     "json",
     "md",
     "pub",
     "pyc",
     "sec",
+    "txt",
     "xml",
     "yaml",
     "yml",
@@ -107,7 +108,7 @@ limitations under the License."""
 # A list of all chars that may be used to introduce a comment:
 COMMENT_CHARS = ["#"]
 
-AUTHOR = """Universität Tübingen, DKFZ and EMBL
+AUTHOR = """Universität Tübingen, DKFZ, EMBL, and Universität zu Köln
 for the German Human Genome-Phenome Archive (GHGA)"""
 
 # The copyright notice should not date earlier than this year:
