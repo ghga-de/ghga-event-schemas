@@ -33,7 +33,7 @@ class MetadataDatasetFile(BaseModel):
 
     accession: str = Field(..., description="The file accession.")
     description: Optional[str] = Field(..., description="The description of the file.")
-    file_extension: str = Field(..., description="The file extension.")
+    file_extension: str = Field(..., description="The file extension with a leading dot.")
 
     class Config:
         """Model config."""
