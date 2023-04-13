@@ -301,28 +301,32 @@ class FileDownloadServed(NonStagedFileRequested):
         title = "file_download_served"
 
 
-class EmailNotification(BaseModel):
-    """This event is emitted by services that desire to send an email notification.
+class Notification(BaseModel):
+    """This event is emitted by services that desire to send a notification.
     It is picked up by the notification service."""
 
-    to_: EmailStr = Field(..., description="The primary recipient of the email")
-    cc: list[EmailStr] = Field(
+    recipient_email: EmailStr = Field(
+        ..., description="The primary recipient of the email"
+    )
+    email_cc: list[EmailStr] = Field(
         default=[], description="The list of recipients cc'd on the email"
     )
-    bcc: list[EmailStr] = Field(
+    email_bcc: list[EmailStr] = Field(
         default=[], description="The list of recipients bcc'd on the email"
     )
-    subject: str = Field(..., description="The subject line for the email")
+    subject: str = Field(..., description="The subject line for the notification")
     recipient_name: str = Field(
         ...,
         description="The full name of the recipient to be used in the greeting section",
     )
-    plaintext_body: str = Field(..., description="The basic text for the email body")
+    plaintext_body: str = Field(
+        ..., description="The basic text for the notification body"
+    )
 
     class Config:
         """Additional Model Config."""
 
-        title = "email_notification"
+        title = "notification"
 
 
 # Lists event schemas (values) by event types (key):
@@ -337,5 +341,5 @@ schema_registry: dict[str, type[BaseModel]] = {
     "non_staged_file_requested": NonStagedFileRequested,
     "file_staged_for_download": FileStagedForDownload,
     "file_download_served": FileDownloadServed,
-    "email_notification": EmailNotification,
+    "notification": Notification,
 }
