@@ -383,23 +383,6 @@ class FileDeletionSuccess(FileDeletionRequested):
         title = "file_deletion_success"
 
 
-class FileDeletionFailure(FileDeletionRequested):
-    """
-    This event is emitted when a service has tried to delete a file from its database as
-    well as the S3 buckets it controls, but failed.
-    """
-
-    reason: str = Field(
-        ...,
-        description="The reason why the deletion failed.",
-    )
-
-    class Config:
-        """Additional Model Config."""
-
-        title = "file_deletion_success"
-
-
 # Lists event schemas (values) by event types (key):
 schema_registry: dict[str, type[BaseModel]] = {
     "metadata_dataset_overview": MetadataDatasetOverview,
