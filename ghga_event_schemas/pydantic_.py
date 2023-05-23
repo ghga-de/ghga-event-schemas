@@ -328,6 +328,50 @@ class Notification(BaseModel):
 
         title = "notification"
 
+class FileDeletionRequested(BaseModel):
+    """This event is emitted when a request to delete a certain file from the file 
+    backend has been made.
+    """
+
+    file_id: str = Field(
+        ..., description="The public ID of the file as present in the metadata catalog."
+    )
+
+    class Config:
+        """Additional Model Config."""
+
+        title = "file_deletion_requested"
+
+
+class FileDeletionSuccess(FileDeletionRequested):
+    """This event is emitted when a service has deleted a file from its database as well 
+    as the S3 buckets it controlls.
+    """
+
+    # currently identical to the FileDeletionRequested event model.
+
+
+    class Config:
+        """Additional Model Config."""
+
+        title = "file_deletion_success"
+
+class FileDeletionFailure(FileDeletionRequested):
+    """This event is emitted when a service has tried to delete a file from its database as 
+    well as the S3 buckets it controls, but failed.
+    """
+
+    reason: str = Field(
+        ...,
+        description="The reason why the deletion failed.",
+    )
+
+    class Config:
+        """Additional Model Config."""
+
+        title = "file_deletion_success"
+
+
 
 # Lists event schemas (values) by event types (key):
 schema_registry: dict[str, type[BaseModel]] = {
