@@ -132,10 +132,10 @@ class FileUploadReceived(UploadDateModel):
         ...,
         description="The public ID of the file as present in the metadata catalog.",
     )
-    object_id: str = Field(
+    source_object_id: str = Field(
         ..., description="The ID of the file in the specific S3 bucket."
     )
-    bucket_id: str = Field(
+    source_bucket_id: str = Field(
         ..., description="The ID/name of the S3 bucket used to store the file."
     )
     submitter_public_key: str = Field(
@@ -168,10 +168,10 @@ class FileUploadValidationSuccess(UploadDateModel):
     file_id: str = Field(
         ..., description="The public ID of the file as present in the metadata catalog."
     )
-    object_id: str = Field(
+    source_object_id: str = Field(
         ..., description="The ID of the file in the specific S3 bucket."
     )
-    bucket_id: str = Field(
+    source_bucket_id: str = Field(
         ..., description="The ID/name of the S3 bucket used to store the file."
     )
     decrypted_size: int = Field(
@@ -234,10 +234,10 @@ class FileUploadValidationFailure(UploadDateModel):
     file_id: str = Field(
         ..., description="The public ID of the file as present in the metadata catalog."
     )
-    object_id: str = Field(
+    source_object_id: str = Field(
         ..., description="The ID of the file in the specific S3 bucket."
     )
-    bucket_id: str = Field(
+    source_bucket_id: str = Field(
         ...,
         description="The ID/name of the S3 bucket used to store the file.",
     )
@@ -298,7 +298,7 @@ class NonStagedFileRequested(BaseModel):
     file_id: str = Field(
         ..., description="The public ID of the file as present in the metadata catalog."
     )
-    object_id: str = Field(
+    target_object_id: str = Field(
         ..., description="The ID of the file in the specific S3 bucket."
     )
     target_bucket_id: str = Field(
