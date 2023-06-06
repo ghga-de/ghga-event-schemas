@@ -234,6 +234,13 @@ class FileUploadValidationFailure(UploadDateModel):
     file_id: str = Field(
         ..., description="The public ID of the file as present in the metadata catalog."
     )
+    object_id: str = Field(
+        ..., description="The ID of the file in the specific S3 bucket."
+    )
+    bucket_id: str = Field(
+        ...,
+        description="The ID/name of the S3 bucket used to store the file.",
+    )
     reason: str = Field(
         ...,
         description="The reason why the validation failed.",
@@ -294,8 +301,9 @@ class NonStagedFileRequested(BaseModel):
     object_id: str = Field(
         ..., description="The ID of the file in the specific S3 bucket."
     )
-    bucket_id: str = Field(
-        ..., description="The ID/name of the S3 bucket used to store the file."
+    target_bucket_id: str = Field(
+        ...,
+        description="The ID/name of the S3 bucket in which the object was expected.",
     )
     decrypted_sha256: str = Field(
         ...,
