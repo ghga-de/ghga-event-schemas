@@ -252,67 +252,12 @@ class FileUploadValidationFailure(UploadDateModel):
         title = "file_upload_validation_failure"
 
 
-class FileInternallyRegistered(BaseModel):
+class FileInternallyRegistered(FileUploadValidationSuccess):
     """
     This event is triggered when an newly uploaded file is internally registered.
     """
 
-    # currently identical to the FileUploadValidationSuccess event model, except for the
-    # object and bucket ID fields
-    file_id: str = Field(
-        ..., description="The public ID of the file as present in the metadata catalog."
-    )
-    object_id: str = Field(
-        ..., description="The ID of the file in the specific S3 bucket."
-    )
-    bucket_id: str = Field(
-        ..., description="The ID/name of the S3 bucket used to store the file."
-    )
-    decrypted_size: int = Field(
-        ...,
-        description="The size of the entire decrypted file content in bytes.",
-    )
-    decryption_secret_id: str = Field(
-        ...,
-        description=(
-            "The ID of the symmetic file encryption/decryption secret."
-            + " Please note, this is not the secret itself."
-        ),
-    )
-    content_offset: int = Field(
-        ...,
-        description=(
-            "The offset in bytes at which the encrypted content starts (excluding the"
-            + " crypt4GH envelope)."
-        ),
-    )
-    encrypted_part_size: int = Field(
-        ...,
-        description=(
-            "The size of the file parts of the encrypted content (excluding the"
-            + " crypt4gh envelope) as used for the encrypted_parts_md5 and the"
-            + " encrypted_parts_sha256 in bytes. The same part size is recommended for"
-            + " moving that content."
-        ),
-    )
-    encrypted_parts_md5: list[str] = Field(
-        ...,
-        description=(
-            "MD5 checksums of file parts of the encrypted content (excluding the"
-            + " crypt4gh envelope)."
-        ),
-    )
-    encrypted_parts_sha256: list[str] = Field(
-        ...,
-        description=(
-            "SHA-256 checksums of file parts of the encrypted content (excluding the"
-            + " crypt4gh envelope)."
-        ),
-    )
-    decrypted_sha256: str = Field(
-        ...,
-        description="The SHA-256 checksum of the entire decrypted file content.",
-    )
+    # currently identical to the FileUploadValidationSuccess event model
 
     class Config:
         """Additional Model Config."""
