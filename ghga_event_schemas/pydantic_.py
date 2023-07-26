@@ -54,7 +54,7 @@ class MetadataDatasetFile(BaseModel):
 
 
 class MetadataDatasetID(BaseModel):
-    """Simplified model to pass artifact/dataset ID to claims repository for deletion"""
+    """Simplified model to pass dataset ID to claims repository for deletion"""
 
     accession: str = Field(..., description="The dataset accession.")
 
@@ -65,7 +65,7 @@ class SearchableResourceInfo(BaseModel):
     accession: str = Field(..., description="The resource accession.")
     class_name: str = Field(
         ...,
-        description="The name of the class this dataset/artifact resource corresponds to.",
+        description="The name of the class this artifact resource corresponds to.",
     )
 
 
@@ -73,7 +73,7 @@ class SearchableResource(SearchableResourceInfo):
     """Model containing resource content in addition to the accession and class name"""
 
     content: dict[str, Any] = Field(
-        ..., description="The metadata content of this dataset/artifact resource."
+        ..., description="The metadata content of this artifact resource."
     )
 
 
