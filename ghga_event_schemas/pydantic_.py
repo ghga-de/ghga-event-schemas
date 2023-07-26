@@ -59,34 +59,19 @@ class MetadataDatasetID(BaseModel):
     accession: str = Field(..., description="The dataset accession.")
 
 
-class DeleteSearchableArtifact(MetadataDatasetID):
-    """Model to convey accession and class name for MASS resource deletion"""
+class SearchableResourceInfo(BaseModel):
+    """Model containing only identifying information about an artifact's resource"""
 
+    accession: str = Field(..., description="The resource accession.")
     class_name: str = Field(
         ...,
         description="The name of the class this dataset/artifact resource corresponds to.",
     )
 
 
-class UpsertSearchableArtifact(MetadataDatasetID):
-    """Model to convey needed information for MASS resource upsertion"""
+class SearchableResource(SearchableResourceInfo):
+    """Model containing resource content in addition to the accession and class name"""
 
-    class_name: str = Field(
-        ...,
-        description="The name of the class this dataset/artifact resource corresponds to.",
-    )
-    content: dict[str, Any] = Field(
-        ..., description="The metadata content of this dataset/artifact resource."
-    )
-
-
-class MetadataDataset(MetadataDatasetID):
-    """Model to populate MASS from metldata artifacts"""
-
-    class_name: str = Field(
-        ...,
-        description="The name of the class this dataset/artifact resource corresponds to.",
-    )
     content: dict[str, Any] = Field(
         ..., description="The metadata content of this dataset/artifact resource."
     )
@@ -460,6 +445,7 @@ class FileDeletionSuccess(FileDeletionRequested):
 
 # Lists event schemas (values) by event types (key):
 schema_registry: dict[str, type[BaseModel]] = {
+    "metadata_dataset_deleted": MetadataDatasetID,
     "metadata_dataset_overview": MetadataDatasetOverview,
     "metadata_submission_upserted": MetadataSubmissionUpserted,
     "file_upload_received": FileUploadReceived,
@@ -471,4 +457,6 @@ schema_registry: dict[str, type[BaseModel]] = {
     "file_staged_for_download": FileStagedForDownload,
     "file_download_served": FileDownloadServed,
     "notification": Notification,
+    "searchable_resource_deleted": SearchableResourceInfo,
+    "searchable_resource_upserted": SearchableResource,
 }
