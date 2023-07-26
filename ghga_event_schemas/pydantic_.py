@@ -59,6 +59,27 @@ class MetadataDatasetID(BaseModel):
     accession: str = Field(..., description="The dataset accession.")
 
 
+class DeleteSearchableArtifact(MetadataDatasetID):
+    """Model to convey accession and class name for MASS resource deletion"""
+
+    class_name: str = Field(
+        ...,
+        description="The name of the class this dataset/artifact resource corresponds to.",
+    )
+
+
+class UpsertSearchableArtifact(MetadataDatasetID):
+    """Model to convey needed information for MASS resource upsertion"""
+
+    class_name: str = Field(
+        ...,
+        description="The name of the class this dataset/artifact resource corresponds to.",
+    )
+    content: dict[str, Any] = Field(
+        ..., description="The metadata content of this dataset/artifact resource."
+    )
+
+
 class MetadataDataset(MetadataDatasetID):
     """Model to populate MASS from metldata artifacts"""
 
