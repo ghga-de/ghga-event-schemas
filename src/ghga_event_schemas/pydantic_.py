@@ -435,21 +435,6 @@ class UserIvaState(UserID):
     model_config = ConfigDict(title="iva_state_change")
 
 
-class UserData(UserID):
-    """Notification event for user data changes."""
-
-    old_name: str = Field(default=..., description="The previous name of the user")
-    old_email: EmailStr = Field(
-        default=..., description="The previous email address of the user"
-    )
-    new_name: str = Field(default=..., description="The changed name of the user")
-    new_email: EmailStr = Field(
-        default=..., description="The changed email address of the user"
-    )
-
-    model_config = ConfigDict(title="user_data_change")
-
-
 # Lists event schemas (values) by event types (key):
 schema_registry: dict[str, type[BaseModel]] = {
     "metadata_dataset_deleted": MetadataDatasetID,
@@ -470,5 +455,4 @@ schema_registry: dict[str, type[BaseModel]] = {
     "second_factor_recreated": UserID,
     "access_request_details": AccessRequestDetails,
     "iva_state_changed": UserIvaState,
-    "user_data_changed": UserData,
 }
