@@ -18,7 +18,7 @@
 import json
 from collections.abc import Mapping
 from datetime import datetime
-from typing import Any, TypedDict, TypeVar
+from typing import Any, TypeVar
 
 import pydantic
 
@@ -28,24 +28,20 @@ Schema = TypeVar("Schema", bound=pydantic.BaseModel)
 from ghga_event_schemas import __version__
 
 
-class SchemaErrorInfo(TypedDict):
-    """Encapsulates info regarding failed schema validations."""
-
-    missing_fields: list[str]
-    mistyped_fields: dict[str, str]
-    unexpected_fields: list[str]
-
-
 class EventSchemaValidationError(ValueError):
     """Raised when an event schema failed to validate against an event schema."""
 
     def __init__(
-        self, *, payload: JsonObject, error_info: SchemaErrorInfo, schema: type[Schema]
+        self,
+        *,
+        payload: JsonObject,
+        error: pydantic.ValidationError,
+        schema: type[Schema],
     ):
         message = (
             "The event payload failed validation against the corresponding"
-            + f" event schema: {json.dumps(error_info)}."
-            + f" The complete payload was: {json.dumps(payload)}."
+            + f" event schema: {error}."
+            + f"\nThe complete payload was: {json.dumps(payload)}."
             + f" The schema is '{schema.__name__}' from ghga-event-schemas v{__version__}."
         )
         super().__init__(message)
@@ -58,21 +54,8 @@ def get_validated_payload(payload: JsonObject, schema: type[Schema]) -> Schema:
     try:
         return schema(**payload)
     except pydantic.ValidationError as error:
-        errors = error.errors(
-            include_context=False, include_url=False, include_input=False
-        )
-        missing = [str(e["loc"][0]) for e in errors if e["type"] == "missing"]
-        mistyped = {
-            str(e["loc"][0]): e["msg"] for e in errors if e["type"] != "missing"
-        }
-        unexpected = [_ for _ in payload if _ not in schema.model_fields]
-        error_info = SchemaErrorInfo(
-            missing_fields=missing,
-            mistyped_fields=mistyped,
-            unexpected_fields=unexpected,
-        )
         raise EventSchemaValidationError(
-            payload=payload, error_info=error_info, schema=schema
+            payload=payload, error=error, schema=schema
         ) from error
 
 
