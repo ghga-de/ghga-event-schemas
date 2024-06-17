@@ -18,21 +18,29 @@
 import json
 from collections.abc import Mapping
 from datetime import datetime
-from typing import Any, TypeVar
+from typing import Any, TypedDict, TypeVar
 
 import pydantic
 
 JsonObject = Mapping[str, Any]
 
 
+class SchemaErrorInfo(TypedDict):
+    """Encapsulates info regarding failed schema validations."""
+
+    missing_fields: list[str]
+    mistyped_fields: dict[str, str]
+    unexpected_fields: list[str]
+
+
 class EventSchemaValidationError(ValueError):
     """Raised when an event schema failed to validate against an event schema."""
 
-    def __init__(self, *, payload: JsonObject, schema: type[pydantic.BaseModel]):
+    def __init__(self, *, payload: JsonObject, error_info: SchemaErrorInfo):
         message = (
-            "The the following event payload failed validation against the corresponding"
-            + f" event schema. The payload was '{json.dumps(payload)}' but the schema"
-            + f" was '{schema.model_json_schema()}."
+            "The event payload failed validation against the corresponding"
+            + f" event schema: {json.dumps(error_info)}."
+            + f" The complete payload is: {json.dumps(payload)}"
         )
         super().__init__(message)
 
@@ -47,7 +55,22 @@ def get_validated_payload(payload: JsonObject, schema: type[Schema]) -> Schema:
     try:
         return schema(**payload)
     except pydantic.ValidationError as error:
-        raise EventSchemaValidationError(payload=payload, schema=schema) from error
+        errors = error.errors(
+            include_context=False, include_url=False, include_input=False
+        )
+        missing = [str(e["loc"][0]) for e in errors if e["type"] == "missing"]
+        mistyped = {
+            str(e["loc"][0]): e["msg"] for e in errors if e["type"] != "missing"
+        }
+        unexpected = [_ for _ in payload if _ not in schema.model_fields]
+        error_info = SchemaErrorInfo(
+            missing_fields=missing,
+            mistyped_fields=mistyped,
+            unexpected_fields=unexpected,
+        )
+        raise EventSchemaValidationError(
+            payload=payload, error_info=error_info
+        ) from error
 
 
 def validated_upload_date(upload_date: str):
