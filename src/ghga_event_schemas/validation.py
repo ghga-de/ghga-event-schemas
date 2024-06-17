@@ -23,6 +23,9 @@ from typing import Any, TypedDict, TypeVar
 import pydantic
 
 JsonObject = Mapping[str, Any]
+Schema = TypeVar("Schema", bound=pydantic.BaseModel)
+
+from ghga_event_schemas import __version__
 
 
 class SchemaErrorInfo(TypedDict):
@@ -36,16 +39,16 @@ class SchemaErrorInfo(TypedDict):
 class EventSchemaValidationError(ValueError):
     """Raised when an event schema failed to validate against an event schema."""
 
-    def __init__(self, *, payload: JsonObject, error_info: SchemaErrorInfo):
+    def __init__(
+        self, *, payload: JsonObject, error_info: SchemaErrorInfo, schema: type[Schema]
+    ):
         message = (
             "The event payload failed validation against the corresponding"
             + f" event schema: {json.dumps(error_info)}."
-            + f" The complete payload is: {json.dumps(payload)}"
+            + f" The complete payload was: {json.dumps(payload)}."
+            + f" The schema is '{schema.__name__}' from ghga-event-schemas v{__version__}."
         )
         super().__init__(message)
-
-
-Schema = TypeVar("Schema", bound=pydantic.BaseModel)
 
 
 def get_validated_payload(payload: JsonObject, schema: type[Schema]) -> Schema:
@@ -69,7 +72,7 @@ def get_validated_payload(payload: JsonObject, schema: type[Schema]) -> Schema:
             unexpected_fields=unexpected,
         )
         raise EventSchemaValidationError(
-            payload=payload, error_info=error_info
+            payload=payload, error_info=error_info, schema=schema
         ) from error
 
 
