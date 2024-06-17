@@ -52,7 +52,7 @@ def test_failure():
 
 def test_datetime_validation_happy():
     """Check validation hook for upload date - happy path"""
-    payload = {"upload_date": datetime.utcnow().isoformat()}
+    payload = {"upload_date": datetime.now().isoformat()}
     validated_payload = get_validated_payload(payload=payload, schema=UploadDateModel)
     assert isinstance(validated_payload, UploadDateModel)
 
