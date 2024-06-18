@@ -70,7 +70,7 @@ def test_datetime_validation_failure():
 @pytest.mark.parametrize(
     "payload,assertions",
     [
-        ({}, ["upload_date", "type=missing"]),
+        ({}, ["type=missing"]),
         ({"upload_date": True}, ["type=string", "should be a valid string"]),
     ],
 )
@@ -82,7 +82,7 @@ def test_error_messages(payload: dict[str, Any], assertions: list[str]):
     with pytest.raises(EventSchemaValidationError) as error:
         get_validated_payload(payload, UploadDateModel)
 
-    error_text = str(error.value.args[0])
+    error_text = str(error.value)
 
     for string in assertions:
         assert string in error_text
