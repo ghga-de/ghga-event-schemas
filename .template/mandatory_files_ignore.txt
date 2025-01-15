@@ -4,6 +4,7 @@
 .devcontainer/dev_launcher
 .github/workflows/dev_cd.yaml
 Dockerfile
+Dockerfile.debian
 config_schema.json
 example_config.yaml
 scripts/script_utils/fastapi_app_location.py

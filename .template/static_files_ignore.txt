@@ -6,7 +6,8 @@
 .github/workflows/check_config_docs.yaml
 .github/workflows/check_openapi_spec.yaml
 .github/workflows/cd.yaml
-
+.github/workflows/ci_release.yaml
+.github/workflows/ci_workflow_dispatch.yaml
 pytest.ini
 
 scripts/script_utils/__init__.py
