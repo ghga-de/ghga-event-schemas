@@ -34,12 +34,12 @@ class DatasetEventsConfig(BaseSettings):
         + " files included in a new dataset.",
         examples=["metadata_datasets"],
     )
-    dataset_deletion_type: str = Field(
+    dataset_deletion_event_type: str = Field(
         ...,
         description="Type used for events announcing a new dataset overview.",
         examples=["dataset_deleted"],
     )
-    dataset_upsertion_type: str = Field(
+    dataset_upsertion_event_type: str = Field(
         ...,
         description="Type used for events announcing a new dataset overview.",
         examples=["dataset_created"],
@@ -61,7 +61,7 @@ class ResourceEventsConfig(BaseSettings):
         + " existing resource.",
         examples=["searchable_resource_deleted"],
     )
-    resource_upsertion_type: str = Field(
+    resource_upsertion_event_type: str = Field(
         ...,
         description="Type used for events indicating the upsert of a resource.",
         examples=["searchable_resource_upserted"],

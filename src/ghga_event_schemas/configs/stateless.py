@@ -63,7 +63,7 @@ class FileMetadataEventsConfig(BaseSettings):
 class FileUploadReceivedEventsConfig(BaseSettings):
     """For events about new file uploads"""
 
-    file_upload_received_topic: str = Field(
+    file_upload_received_event_topic: str = Field(
         default=...,
         description="The name of the topic used for FileUploadReceived events.",
         examples=["received-file-uploads"],
@@ -180,7 +180,7 @@ class FileDeletedEventsConfig(BaseSettings):
 
 
 class _FileInterrogationsConfig(BaseSettings):
-    file_interrogations_topic: str = Field(
+    file_interrogations_event_topic: str = Field(
         default=...,
         description=(
             "The name of the topic use to publish file interrogation outcome events."
