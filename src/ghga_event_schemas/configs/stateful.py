@@ -18,6 +18,12 @@
 from pydantic import Field
 from pydantic_settings import BaseSettings
 
+__all__ = [
+    "DatasetEventsConfig",
+    "ResourceEventsConfig",
+    "UserEventsConfig",
+]
+
 
 class DatasetEventsConfig(BaseSettings):
     """For dataset change events."""
@@ -62,7 +68,7 @@ class ResourceEventsConfig(BaseSettings):
     )
 
 
-class UserEventsTopicConfig(BaseSettings):
+class UserEventsConfig(BaseSettings):
     """Config for communication changes to user data, done via outbox.
 
     The upsertion and deletion event types are hardcoded by `hexkit`.

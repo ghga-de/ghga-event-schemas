@@ -18,8 +18,28 @@
 from pydantic import Field
 from pydantic_settings import BaseSettings
 
+__all__ = [
+    "AccessRequestAllowedEventsConfig",
+    "AccessRequestCreatedEventsConfig",
+    "AccessRequestDeniedEventsConfig",
+    "DownloadServedEventsConfig",
+    "FileDeletedEventsConfig",
+    "FileDeletionRequestEventsConfig",
+    "FileInternallyRegisteredEventsConfig",
+    "FileInterrogationFailureEventsConfig",
+    "FileInterrogationSuccessEventsConfig",
+    "FileMetadataEventsConfig",
+    "FileRegisteredForDownloadEventsConfig",
+    "FileStagedEventsConfig",
+    "FileStagingRequestedEventsConfig",
+    "FileUploadReceivedEventsConfig",
+    "IvaChangeEventsConfig",
+    "NotificationEventsConfig",
+    "SecondFactorRecreatedEventsConfig",
+]
 
-class FileMetadataEventsTopic(BaseSettings):
+
+class FileMetadataEventsConfig(BaseSettings):
     """For events related to new file metadata arrivals"""
 
     file_metadata_event_topic: str = Field(
@@ -129,12 +149,12 @@ class DownloadServedEventsConfig(BaseSettings):
 class FileDeletionRequestEventsConfig(BaseSettings):
     """For events that require deleting a file."""
 
-    files_to_delete_topic: str = Field(
+    file_deletion_request_event_topic: str = Field(
         default=...,
         description="The name of the topic to receive events informing about files to delete.",
         examples=["file-deletion-requests"],
     )
-    file_deletion_request_event_topic: str = Field(
+    file_deletion_request_event_type: str = Field(
         default=...,
         description="The type used for events indicating that a request to delete"
         + " a file has been received.",
@@ -169,7 +189,7 @@ class _FileInterrogationsConfig(BaseSettings):
     )
 
 
-class FileValidationSuccessEventsConfig(_FileInterrogationsConfig):
+class FileInterrogationSuccessEventsConfig(_FileInterrogationsConfig):
     """For events conveying that a file interrogation was successful"""
 
     interrogation_success_event_type: str = Field(
@@ -181,7 +201,7 @@ class FileValidationSuccessEventsConfig(_FileInterrogationsConfig):
     )
 
 
-class FileValidationFailureEventsConfig(_FileInterrogationsConfig):
+class FileInterrogationFailureEventsConfig(_FileInterrogationsConfig):
     """For events conveying that a file interrogation was unsuccessful"""
 
     interrogation_failure_event_type: str = Field(
@@ -193,46 +213,50 @@ class FileValidationFailureEventsConfig(_FileInterrogationsConfig):
     )
 
 
-class FileToRegisterEventsConfig(BaseSettings):
-    """For events containing info about a file to register"""
-
-    files_to_register_event_topic: str = Field(
-        default=...,
-        description="The name of the topic to receive events informing about new files "
-        + "to register.",
-        examples=["files-to-register"],
-    )
-    files_to_register_event_type: str = Field(
-        default=...,
-        description="The name of the type for events informing about new files "
-        + "to register.",
-        examples=["file_to_register"],
-    )
-
-
-class FileRegisteredEventsConfig(BaseSettings):
+class FileInternallyRegisteredEventsConfig(BaseSettings):
     """For events conveying that a file was registered in the permanent bucket."""
 
-    file_registered_event_topic: str = Field(
+    file_internally_registered_event_topic: str = Field(
         default=...,
         description=(
             "Name of the topic used for events indicating that a file has"
             + " been registered for download."
         ),
-        examples=["file-registrations"],
+        examples=["file-registrations", "file-registrations-internal"],
     )
-    file_registered_event_type: str = Field(
+    file_internally_registered_event_type: str = Field(
         default=...,
         description=(
             "The type used for event indicating that that a file has"
             + " been registered for download."
         ),
-        examples=["file_registered"],
+        examples=["file_internally_registered"],
+    )
+
+
+class FileRegisteredForDownloadEventsConfig(BaseSettings):
+    """For events indicating that a file was registered for download."""
+
+    file_registered_for_download_event_topic: str = Field(
+        default=...,
+        description=(
+            "Name of the topic used for events indicating that a file has been"
+            + " registered by the DCS for download."
+        ),
+        examples=["file-registrations", "file-registrations-download"],
+    )
+    file_registered_for_download_event_type: str = Field(
+        default=...,
+        description=(
+            "The type used for event indicating that a file has been registered"
+            + " by the DCS for download."
+        ),
+        examples=["file_registered_for_download"],
     )
 
 
 class _AccessRequestConfig(BaseSettings):
-    access_request_events_topic: str = Field(
+    access_request_event_topic: str = Field(
         default=...,
         description="Name of the event topic used to consume access request events",
         examples=["access-requests"],
@@ -269,7 +293,7 @@ class AccessRequestDeniedEventsConfig(_AccessRequestConfig):
     )
 
 
-class IvaChangeEventsType(BaseSettings):
+class IvaChangeEventsConfig(BaseSettings):
     """For events communicating updates to IVA statuses.
 
     This is not for stateful event communication, despite the name.
