@@ -28,18 +28,18 @@ __all__ = [
 class DatasetEventsConfig(BaseSettings):
     """For dataset change events."""
 
-    dataset_change_event_topic: str = Field(
+    dataset_change_topic: str = Field(
         ...,
         description="Name of the topic announcing, among other things, the list of"
         + " files included in a new dataset.",
         examples=["metadata_datasets"],
     )
-    dataset_deletion_event_type: str = Field(
+    dataset_deletion_type: str = Field(
         ...,
         description="Type used for events announcing a new dataset overview.",
         examples=["dataset_deleted"],
     )
-    dataset_upsertion_event_type: str = Field(
+    dataset_upsertion_type: str = Field(
         ...,
         description="Type used for events announcing a new dataset overview.",
         examples=["dataset_created"],
@@ -49,19 +49,19 @@ class DatasetEventsConfig(BaseSettings):
 class ResourceEventsConfig(BaseSettings):
     """For searchable metadata resource change events."""
 
-    resource_change_event_topic: str = Field(
+    resource_change_topic: str = Field(
         ...,
         description="Name of the topic used for events informing other services about"
         + " resource changes, i.e. deletion or insertion.",
         examples=["searchable_resources"],
     )
-    resource_deletion_event_type: str = Field(
+    resource_deletion_type: str = Field(
         ...,
         description="Type used for events indicating the deletion of a previously"
         + " existing resource.",
         examples=["searchable_resource_deleted"],
     )
-    resource_upsertion_event_type: str = Field(
+    resource_upsertion_type: str = Field(
         ...,
         description="Type used for events indicating the upsert of a resource.",
         examples=["searchable_resource_upserted"],
@@ -74,7 +74,7 @@ class UserEventsConfig(BaseSettings):
     The upsertion and deletion event types are hardcoded by `hexkit`.
     """
 
-    user_event_topic: str = Field(
+    user_topic: str = Field(
         default="users",
         description="The name of the topic containing user events.",
     )
