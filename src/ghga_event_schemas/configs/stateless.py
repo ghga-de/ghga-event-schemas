@@ -68,7 +68,7 @@ class FileUploadReceivedEventsConfig(BaseSettings):
         description="The name of the topic used for FileUploadReceived events.",
         examples=["received-file-uploads"],
     )
-    file_upload_received_event_type: str = Field(
+    file_upload_received_type: str = Field(
         default=...,
         description="The name of the type used for FileUploadReceived events.",
         examples=["file_upload_received"],
@@ -99,12 +99,12 @@ class FileStagingRequestedEventsConfig(BaseSettings):
             "Name of the topic used for events indicating that a download was requested"
             + " for a file that is not yet available in the outbox."
         ),
-        examples=["file-downloads", "file-stage-requests"],
+        examples=["file-staging-requests"],
     )
-    files_to_stage_event_type: str = Field(
+    files_to_stage_type: str = Field(
         default=...,
         description="The type used for non-staged file request events",
-        examples=["non_staged_file_requested"],
+        examples=["file_staging_requested"],
     )
 
 
@@ -154,7 +154,7 @@ class FileDeletionRequestEventsConfig(BaseSettings):
         description="The name of the topic to receive events informing about files to delete.",
         examples=["file-deletion-requests"],
     )
-    file_deletion_request_event_type: str = Field(
+    file_deletion_request_type: str = Field(
         default=...,
         description="The type used for events indicating that a request to delete"
         + " a file has been received.",
@@ -192,7 +192,7 @@ class _FileInterrogationsConfig(BaseSettings):
 class FileInterrogationSuccessEventsConfig(_FileInterrogationsConfig):
     """For events conveying that a file interrogation was successful"""
 
-    interrogation_success_event_type: str = Field(
+    interrogation_success_type: str = Field(
         default=...,
         description=(
             "The type used for events informing about successful file validations."
