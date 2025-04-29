@@ -22,6 +22,8 @@ __all__ = [
     "AccessRequestAllowedEventsConfig",
     "AccessRequestCreatedEventsConfig",
     "AccessRequestDeniedEventsConfig",
+    "AccessRequestStartsChangedEventsConfig",
+    "AccessRequestEndsChangedEventsConfig",
     "DownloadServedEventsConfig",
     "FileDeletedEventsConfig",
     "FileDeletionRequestEventsConfig",
@@ -290,6 +292,26 @@ class AccessRequestDeniedEventsConfig(_AccessRequestConfig):
         default=...,
         description="The type to use for access request denied events",
         examples=["access_request_denied"],
+    )
+
+
+class AccessRequestStartsChangedEventsConfig(_AccessRequestConfig):
+    """For events conveying an access request access start date was changed"""
+
+    access_request_starts_changed_type: str = Field(
+        default=...,
+        description="The type to use for access request access start date changed events",
+        examples=["access_request_starts_changed"],
+    )
+
+
+class AccessRequestEndsChangedEventsConfig(_AccessRequestConfig):
+    """For events conveying an access access end date was changed"""
+
+    access_request_ends_changed_type: str = Field(
+        default=...,
+        description="The type to use for access request access end date changed events",
+        examples=["access_request_ends_changed"],
     )
 
 
