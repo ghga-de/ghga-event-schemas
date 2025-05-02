@@ -89,6 +89,6 @@ class AccessRequestEventsConfig(BaseSettings):
 
     access_request_topic: str = Field(
         default=...,
-        description="Name of the event topic used to consume access request events",
+        description="Name of the event topic containing access request events",
         examples=["access-requests"],
     )
