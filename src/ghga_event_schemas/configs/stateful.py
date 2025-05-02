@@ -19,6 +19,7 @@ from pydantic import Field
 from pydantic_settings import BaseSettings
 
 __all__ = [
+    "AccessRequestEventsConfig",
     "DatasetEventsConfig",
     "ResourceEventsConfig",
     "UserEventsConfig",
@@ -69,7 +70,7 @@ class ResourceEventsConfig(BaseSettings):
 
 
 class UserEventsConfig(BaseSettings):
-    """Config for communication changes to user data, done via outbox.
+    """Config for communicating changes to user data, done via outbox.
 
     The upsertion and deletion event types are hardcoded by `hexkit`.
     """
@@ -77,4 +78,17 @@ class UserEventsConfig(BaseSettings):
     user_topic: str = Field(
         default="users",
         description="The name of the topic containing user events.",
+    )
+
+
+class AccessRequestEventsConfig(BaseSettings):
+    """Config for events communicating changes in access requests.
+
+    The event types are hardcoded by `hexkit`.
+    """
+
+    access_request_topic: str = Field(
+        default=...,
+        description="Name of the event topic used to consume access request events",
+        examples=["access-requests"],
     )
