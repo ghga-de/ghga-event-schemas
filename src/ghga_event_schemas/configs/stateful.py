@@ -37,13 +37,13 @@ class DatasetEventsConfig(BaseSettings):
     )
     dataset_deletion_type: str = Field(
         ...,
-        description="Type used for events announcing a new dataset overview.",
+        description="Event type used for communicating dataset deletions",
         examples=["dataset_deleted"],
     )
     dataset_upsertion_type: str = Field(
         ...,
-        description="Type used for events announcing a new dataset overview.",
-        examples=["dataset_created"],
+        description="Event type used for communicating dataset upsertions",
+        examples=["dataset_upserted"],
     )
 
 
