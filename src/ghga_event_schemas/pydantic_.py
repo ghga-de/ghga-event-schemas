@@ -439,7 +439,7 @@ class AccessRequestStatus(str, Enum):
 class AccessRequestDetails(UserID):
     """Event used to convey the details an access request."""
 
-    access_request_id: str = Field(..., description="The access request ID")
+    id: str = Field(..., description="The access request ID")
     dataset_id: str = Field(..., description="The dataset ID")
     dataset_title: str = Field(..., description="The dataset title")
     dataset_description: str | None = Field(
