@@ -428,12 +428,29 @@ class User(UserID):
     )
 
 
+class AccessRequestStatus(str, Enum):
+    """The status of an access request."""
+
+    ALLOWED = "allowed"
+    DENIED = "denied"
+    PENDING = "pending"
+
+
 class AccessRequestDetails(UserID):
     """Event used to convey the details an access request."""
 
     dataset_id: str = Field(..., description="The dataset ID")
     dataset_title: str = Field(..., description="The dataset title")
-    dataset_description: str = Field(..., description="A description of the dataset")
+    dataset_description: str | None = Field(
+        default=None, description="A description of the dataset"
+    )
+    status: AccessRequestStatus = Field(
+        default=...,
+        description="The status of the access request",
+    )
+    request_text: str = Field(
+        default=..., description="Text note submitted with the request"
+    )
     dac_alias: str = Field(
         ...,
         description="The alias of the Data Access Committee responsible for the dataset",
