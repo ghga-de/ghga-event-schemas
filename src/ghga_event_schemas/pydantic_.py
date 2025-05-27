@@ -85,7 +85,7 @@ class MetadataDatasetOverview(MetadataDatasetID):
     )
     description: str | None = Field(..., description="The description of the dataset.")
     dac_alias: str = Field(..., description="The alias of the Data Access Committee.")
-    dac_email: str = Field(
+    dac_email: EmailStr = Field(
         ..., description="The email address of the Data Access Committee."
     )
     files: list[MetadataDatasetFile] = Field(
@@ -458,6 +458,9 @@ class AccessRequestDetails(UserID):
     dac_alias: str = Field(
         ...,
         description="The alias of the Data Access Committee responsible for the dataset",
+    )
+    dac_email: EmailStr = Field(
+        ..., description="The email address of the Data Access Committee."
     )
     ticket_id: str | None = Field(
         default=None,
