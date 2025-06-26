@@ -74,10 +74,10 @@ class SearchableResource(SearchableResourceInfo):
 
 
 class ArtifactTag(BaseModel):
-    """A model representing a tag for an artifact (artifact name and submission ID)."""
+    """A model representing a tag for an artifact (artifact name and study accession)."""
 
-    submission_id: str = Field(
-        ..., description="The ID of the submission this artifact belongs to."
+    study_accession: str = Field(
+        ..., description="The ID of the study this artifact pertains to."
     )
     artifact_name: str = Field(
         ..., description="The name of the artifact, e.g. 'added_accessions'."
