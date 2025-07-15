@@ -23,7 +23,7 @@ from enum import StrEnum
 from typing import Any
 
 from ghga_service_commons.utils.utc_dates import UTCDatetime
-from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
+from pydantic import UUID4, BaseModel, ConfigDict, EmailStr, Field, field_validator
 
 from ghga_event_schemas.validation import validated_upload_date
 
@@ -116,13 +116,12 @@ class MetadataDatasetOverview(MetadataDatasetID):
 class UploadDateModel(BaseModel):
     """
     Custom base model for common datetime validation.
-    Models containing stringified upload_date datetimes should be derived from this.
+    Models containing upload_date datetimes should be derived from this.
     """
 
-    upload_date: str = Field(
+    upload_date: UTCDatetime = Field(
         ...,
-        description="The date and time when this file was uploaded."
-        + "String format should follow ISO 8601 as produced by datetime.utcnow().isoformat()",
+        description="The date and time when this file was uploaded.",
     )
 
     @field_validator("upload_date")
@@ -172,7 +171,7 @@ class FileUploadReceived(UploadDateModel):
         ...,
         description="The public ID of the file as present in the metadata catalog.",
     )
-    object_id: str = Field(
+    object_id: UUID4 = Field(
         ..., description="The ID of the file in the specific S3 bucket."
     )
     bucket_id: str = Field(
@@ -207,7 +206,7 @@ class FileUploadValidationSuccess(UploadDateModel):
     file_id: str = Field(
         ..., description="The public ID of the file as present in the metadata catalog."
     )
-    object_id: str = Field(
+    object_id: UUID4 = Field(
         ..., description="The ID of the file in the specific S3 bucket."
     )
     bucket_id: str = Field(
@@ -272,7 +271,7 @@ class FileUploadValidationFailure(UploadDateModel):
     file_id: str = Field(
         ..., description="The public ID of the file as present in the metadata catalog."
     )
-    object_id: str = Field(
+    object_id: UUID4 = Field(
         ..., description="The ID of the file in the specific S3 bucket."
     )
     bucket_id: str = Field(
@@ -331,7 +330,7 @@ class NonStagedFileRequested(BaseModel):
     file_id: str = Field(
         ..., description="The public ID of the file as present in the metadata catalog."
     )
-    target_object_id: str = Field(
+    target_object_id: UUID4 = Field(
         ..., description="The ID of the file in the specific S3 bucket."
     )
     target_bucket_id: str = Field(
@@ -461,7 +460,7 @@ class AccessRequestStatus(StrEnum):
 class AccessRequestDetails(UserID):
     """Event used to convey the details an access request."""
 
-    id: str = Field(..., description="The access request ID")
+    id: UUID4 = Field(..., description="The access request ID")
     dataset_id: str = Field(..., description="The dataset ID")
     dataset_title: str = Field(..., description="The dataset title")
     dataset_description: str | None = Field(
