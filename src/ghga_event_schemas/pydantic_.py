@@ -131,15 +131,20 @@ class UploadDateModel(BaseModel):
         return validated_upload_date(upload_date)
 
 
-class MetadataSubmissionFiles(BaseModel):
+class FileIdModel(BaseModel):
+    """Base model for events that contain a file ID."""
+
+    file_id: str = Field(
+        ..., description="The public ID of the file as present in the metadata catalog."
+    )
+
+
+class MetadataSubmissionFiles(FileIdModel):
     """
     Models files that are associated with or affected by a new or updated metadata
     submission.
     """
 
-    file_id: str = Field(
-        ..., description="The public ID of the file as present in the metadata catalog."
-    )
     file_name: str = Field(
         ...,
         description="The name of the file as it was submitted.",
@@ -164,13 +169,9 @@ class MetadataSubmissionUpserted(BaseModel):
     model_config = ConfigDict(title="metadata_submission_upserted")
 
 
-class FileUploadReceived(UploadDateModel):
+class FileUploadReceived(UploadDateModel, FileIdModel):
     """This event is triggered when a new file upload is received."""
 
-    file_id: str = Field(
-        ...,
-        description="The public ID of the file as present in the metadata catalog.",
-    )
     object_id: UUID4 = Field(
         ..., description="The ID of the file in the specific S3 bucket."
     )
@@ -200,12 +201,9 @@ class FileUploadReceived(UploadDateModel):
     model_config = ConfigDict(title="file_upload_received")
 
 
-class FileUploadValidationSuccess(UploadDateModel):
+class FileUploadValidationSuccess(UploadDateModel, FileIdModel):
     """This event is triggered when an uploaded file is successfully validated."""
 
-    file_id: str = Field(
-        ..., description="The public ID of the file as present in the metadata catalog."
-    )
     object_id: UUID4 = Field(
         ..., description="The ID of the file in the specific S3 bucket."
     )
@@ -265,12 +263,9 @@ class FileUploadValidationSuccess(UploadDateModel):
     model_config = ConfigDict(title="file_upload_validation_success")
 
 
-class FileUploadValidationFailure(UploadDateModel):
+class FileUploadValidationFailure(UploadDateModel, FileIdModel):
     """This event is triggered when an uploaded file failed to validate."""
 
-    file_id: str = Field(
-        ..., description="The public ID of the file as present in the metadata catalog."
-    )
     object_id: UUID4 = Field(
         ..., description="The ID of the file in the specific S3 bucket."
     )
@@ -301,15 +296,12 @@ class FileInternallyRegistered(FileUploadValidationSuccess):
     model_config = ConfigDict(title="file_internally_registered")
 
 
-class FileRegisteredForDownload(UploadDateModel):
+class FileRegisteredForDownload(UploadDateModel, FileIdModel):
     """
     This event is triggered when a newly uploaded file becomes available for
     download via a GA4GH DRS-compatible API.
     """
 
-    file_id: str = Field(
-        ..., description="The public ID of the file as present in the metadata catalog."
-    )
     decrypted_sha256: str = Field(
         ...,
         description="The SHA-256 checksum of the entire decrypted file content.",
@@ -321,15 +313,12 @@ class FileRegisteredForDownload(UploadDateModel):
     model_config = ConfigDict(title="file_registered_for_download")
 
 
-class NonStagedFileRequested(BaseModel):
+class NonStagedFileRequested(FileIdModel):
     """
     This event type is triggered when a user requests to download a file that is not
     yet present in the outbox and needs to be staged.
     """
 
-    file_id: str = Field(
-        ..., description="The public ID of the file as present in the metadata catalog."
-    )
     target_object_id: UUID4 = Field(
         ..., description="The ID of the file in the specific S3 bucket."
     )
@@ -397,15 +386,12 @@ class Notification(BaseModel):
     model_config = ConfigDict(title="notification")
 
 
-class FileDeletionRequested(BaseModel):
+class FileDeletionRequested(FileIdModel):
     """
     This event is emitted when a request to delete a certain file from the file
     backend has been made.
     """
 
-    file_id: str = Field(
-        ..., description="The public ID of the file as present in the metadata catalog."
-    )
     model_config = ConfigDict(title="file_deletion_requested")
 
 
@@ -421,7 +407,7 @@ class FileDeletionSuccess(FileDeletionRequested):
 class UserID(BaseModel):
     """Generic event payload to relay a user ID."""
 
-    user_id: str = Field(..., description="The user ID")
+    user_id: UUID4 = Field(..., description="The user ID")
 
 
 class AcademicTitle(StrEnum):
