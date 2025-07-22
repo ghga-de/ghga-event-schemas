@@ -23,9 +23,7 @@ from enum import StrEnum
 from typing import Any
 
 from ghga_service_commons.utils.utc_dates import UTCDatetime
-from pydantic import UUID4, BaseModel, ConfigDict, EmailStr, Field, field_validator
-
-from ghga_event_schemas.validation import validated_upload_date
+from pydantic import UUID4, BaseModel, ConfigDict, EmailStr, Field
 
 
 class MetadataDatasetStage(StrEnum):
@@ -123,12 +121,6 @@ class UploadDateModel(BaseModel):
         ...,
         description="The date and time when this file was uploaded.",
     )
-
-    @field_validator("upload_date")
-    @classmethod
-    def check_datetime_format(cls, upload_date):
-        """Validate provided upload date string can be interpreted as datetime"""
-        return validated_upload_date(upload_date)
 
 
 class FileIdModel(BaseModel):
