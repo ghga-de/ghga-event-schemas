@@ -21,6 +21,7 @@ schema representations such as json-schema.
 
 from enum import StrEnum
 from typing import Any
+from uuid import uuid4
 
 from ghga_service_commons.utils.utc_dates import UTCDatetime
 from pydantic import UUID4, BaseModel, ConfigDict, EmailStr, Field
@@ -511,6 +512,70 @@ class UserIvaState(UserID):
     state: IvaState = Field(..., description="The new state of the IVA")
 
     model_config = ConfigDict(title="iva_state_change")
+
+
+class ResearchDataUploadBoxState(StrEnum):
+    """The allowed states for a ResearchDataUploadBox instance."""
+
+    OPEN = "open"
+    LOCKED = "locked"
+    CLOSED = "closed"
+
+
+class ResearchDataUploadBox(BaseModel):
+    """A class representing a ResearchDataUploadBox.
+
+    Contains all fields from the FileUploadBox.
+    """
+
+    id: UUID4 = Field(
+        default_factory=uuid4,
+        description="Unique identifier for the research data upload box",
+    )
+    state: ResearchDataUploadBoxState = Field(
+        ..., description="Current state of the upload box"
+    )
+    title: str = Field(..., description="Short meaningful name for the box")
+    description: str = Field(..., description="Describes the upload box in more detail")
+    last_changed: UTCDatetime = Field(..., description="Timestamp of the latest change")
+    changed_by: UUID4 = Field(
+        ..., description="ID of the user who performed the latest change"
+    )
+    file_upload_box_id: UUID4 = Field(..., description="The ID of the file upload box.")
+    locked: bool = Field(
+        default=False,
+        description="Whether or not changes to the files in the file upload box are allowed",
+    )
+    file_count: int = Field(default=0, description="The number of files in the box")
+    size: int = Field(default=0, description="The total size of all files in the box")
+    storage_alias: str = Field(..., description="S3 storage alias to use for uploads")
+
+
+class FileUpload(BaseModel):
+    """A File Upload."""
+
+    upload_id: UUID4 = Field(..., description="Unique identifier for the file upload")
+    completed: bool = Field(
+        default=False, description="Whether or not the file upload has finished"
+    )
+    alias: str = Field(
+        ..., description="The submitted alias from the metadata (unique within the box)"
+    )
+    checksum: str = Field(..., description="Unencrypted checksum")
+    size: int = Field(..., description="File size in bytes")
+
+
+class FileUploadBox(BaseModel):
+    """A class representing a box that bundles files belonging to the same upload."""
+
+    id: UUID4 = Field(..., description="Unique identifier for the instance")
+    locked: bool = Field(
+        default=False,
+        description="Whether or not changes to the files in the box are allowed",
+    )
+    file_count: int = Field(default=0, description="The number of files in the box")
+    size: int = Field(default=0, description="The total size of all files in the box")
+    storage_alias: str = Field(..., description="S3 storage alias to use for uploads")
 
 
 # Lists event schemas (values) by event types (key):

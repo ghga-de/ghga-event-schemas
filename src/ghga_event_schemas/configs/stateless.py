@@ -19,6 +19,7 @@ from pydantic import Field
 from pydantic_settings import BaseSettings
 
 __all__ = [
+    "AuditEventsConfig",
     "DownloadServedEventsConfig",
     "FileDeletedEventsConfig",
     "FileDeletionRequestEventsConfig",
@@ -285,4 +286,20 @@ class SecondFactorRecreatedEventsConfig(_AuthEventsConfig):
         default=...,
         description="The event type for recreation of the second factor for authentication",
         examples=["second_factor_recreated"],
+    )
+
+
+class AuditEventsConfig(BaseSettings):
+    """For events conveying audit record information"""
+
+    audit_record_topic: str = Field(
+        default=...,
+        description="Name of the topic used for events conveying audit record information.",
+        examples=["audit-records"],
+    )
+
+    audit_record_type: str = Field(
+        default=...,
+        description="The type used for events conveying audit record information.",
+        examples=["audit_record_logged"],
     )
