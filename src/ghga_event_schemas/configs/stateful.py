@@ -20,6 +20,7 @@ from pydantic_settings import BaseSettings
 
 __all__ = [
     "AccessRequestEventsConfig",
+    "ArtifactEventsConfig",
     "DatasetEventsConfig",
     "FileUploadBoxEventsConfig",
     "FileUploadEventsConfig",
