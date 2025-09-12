@@ -20,7 +20,7 @@ schema representations such as json-schema.
 """
 
 from enum import StrEnum
-from typing import Any
+from typing import Any, Literal
 from uuid import uuid4
 
 from ghga_service_commons.utils.utc_dates import UTCDatetime
@@ -576,6 +576,33 @@ class FileUploadBox(BaseModel):
     file_count: int = Field(default=0, description="The number of files in the box")
     size: int = Field(default=0, description="The total size of all files in the box")
     storage_alias: str = Field(..., description="S3 storage alias to use for uploads")
+
+
+class AuditRecord(BaseModel):
+    """A generic record for audit purposes."""
+
+    id: UUID4 = Field(
+        default_factory=uuid4, description="A unique identifier for the record"
+    )
+    created: UTCDatetime = Field(
+        ..., description="Timestamp when the record was created"
+    )
+    service: str = Field(
+        ..., description="Name of the service that generated the record"
+    )
+    label: str = Field(..., description="Short label describing the action")
+    description: str = Field(..., description="Detailed description of the action")
+    user_id: UUID4 | None = Field(
+        default=None, description="ID of the user who performed the action"
+    )
+    correlation_id: UUID4 = Field(
+        ..., description="Correlation ID for tracing requests"
+    )
+    action: Literal["C", "R", "U", "D"] | None = Field(
+        default=None, description="CRUD operation type"
+    )
+    entity: str | None = Field(default=None, description="Type of entity affected")
+    entity_id: str | None = Field(default=None, description="ID of the entity affected")
 
 
 # Lists event schemas (values) by event types (key):
