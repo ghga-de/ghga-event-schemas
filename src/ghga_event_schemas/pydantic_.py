@@ -551,6 +551,9 @@ class ResearchDataUploadBox(BaseModel):
     storage_alias: str = Field(..., description="S3 storage alias to use for uploads")
 
 
+FileUploadState = Literal["init", "inbox", "archived"]
+
+
 class FileUpload(BaseModel):
     """A File Upload."""
 
@@ -558,6 +561,7 @@ class FileUpload(BaseModel):
     completed: bool = Field(
         default=False, description="Whether or not the file upload has finished"
     )
+    state: FileUploadState = Field("init", description="The state of the FileUpload")
     alias: str = Field(
         ..., description="The submitted alias from the metadata (unique within the box)"
     )
@@ -603,6 +607,15 @@ class AuditRecord(BaseModel):
     )
     entity: str | None = Field(default=None, description="Type of entity affected")
     entity_id: str | None = Field(default=None, description="ID of the entity affected")
+
+
+class FileUploadReport(BaseModel):
+    """A report that models the result of the Data Hub-side file inspection"""
+
+    # Note, this model is subject to change; consider this a rough sketch for now
+    file_id: UUID4
+    secret_id: str
+    passed_inspection: bool
 
 
 # Lists event schemas (values) by event types (key):

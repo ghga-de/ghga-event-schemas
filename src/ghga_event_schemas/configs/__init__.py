@@ -38,6 +38,7 @@ from .stateless import (  # noqa: F401
     FileStagedEventsConfig,
     FileStagingRequestedEventsConfig,
     FileUploadReceivedEventsConfig,
+    FileUploadReportEventsConfig,
     IvaChangeEventsConfig,
     NotificationEventsConfig,
     SecondFactorRecreatedEventsConfig,

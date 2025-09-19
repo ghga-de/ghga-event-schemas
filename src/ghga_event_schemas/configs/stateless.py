@@ -31,6 +31,7 @@ __all__ = [
     "FileStagedEventsConfig",
     "FileStagingRequestedEventsConfig",
     "FileUploadReceivedEventsConfig",
+    "FileUploadReportEventsConfig",
     "IvaChangeEventsConfig",
     "NotificationEventsConfig",
     "SecondFactorRecreatedEventsConfig",
@@ -302,4 +303,21 @@ class AuditEventsConfig(BaseSettings):
         default=...,
         description="The type used for events conveying audit record information.",
         examples=["audit_record_logged"],
+    )
+
+
+class FileUploadReportEventsConfig(BaseSettings):
+    """For events indicating that Data Hub file inspection is complete"""
+
+    file_upload_reports_topic: str = Field(
+        ...,
+        description="Name of the topic used for events indicating that a Data Hub"
+        + " has completed re-encryption and inspection of a file.",
+        examples=["file-upload-reports"],
+    )
+    file_upload_reports_type: str = Field(
+        ...,
+        description="The type used for events indicating that a Data Hub has completed"
+        + " re-encryption and inspection of a file.",
+        examples=["file_upload_report_generated", "file_upload_report"],
     )
