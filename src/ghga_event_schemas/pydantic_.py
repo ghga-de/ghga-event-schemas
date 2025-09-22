@@ -551,7 +551,17 @@ class ResearchDataUploadBox(BaseModel):
     storage_alias: str = Field(..., description="S3 storage alias to use for uploads")
 
 
-FileUploadState = Literal["init", "inbox", "archived"]
+class FileUploadState(StrEnum):
+    """The allowed states for a ResearchDataUploadBox instance.
+
+    init: file upload initiated, but not yet finished
+    inbox: file upload complete, file in inbox
+    archived: file moved out of inbox after completion
+    """
+
+    INIT = "init"
+    INBOX = "inbox"
+    ARCHIVED = "archived"
 
 
 class FileUpload(BaseModel):
@@ -561,7 +571,9 @@ class FileUpload(BaseModel):
     completed: bool = Field(
         default=False, description="Whether or not the file upload has finished"
     )
-    state: FileUploadState = Field("init", description="The state of the FileUpload")
+    state: FileUploadState = Field(
+        FileUploadState.INIT, description="The state of the FileUpload"
+    )
     alias: str = Field(
         ..., description="The submitted alias from the metadata (unique within the box)"
     )
