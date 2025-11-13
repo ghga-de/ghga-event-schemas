@@ -23,9 +23,9 @@ email-validator==2.3.0 \
     # via
     #   -c lock/requirements-dev.txt
     #   pydantic
-ghga-service-commons==6.0.0 \
-    --hash=sha256:39462cf3e847266f747454ddc53bb4849e6edf9f4b63aed27ec313a2710c7e91 \
-    --hash=sha256:c9c545d71ecf4f3bb8706c9a95f85366ecac68bc2284a34b30e5a5f5f105d69d
+ghga-service-commons==6.0.1 \
+    --hash=sha256:3671d0117a583db9659711ab2a093951916b688e39b51320f3566d945b64c5bb \
+    --hash=sha256:70bc72949b9825edc0d31a86142f66f3949c6c7b32fa8b2df13ac4ad5d3a7b25
     # via
     #   -c lock/requirements-dev.txt
     #   ghga-event-schemas (pyproject.toml)
