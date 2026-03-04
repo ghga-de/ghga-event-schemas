@@ -23,9 +23,9 @@ email-validator==2.3.0 \
     # via
     #   -c lock/requirements-dev.txt
     #   pydantic
-ghga-service-commons==6.0.1 \
-    --hash=sha256:3671d0117a583db9659711ab2a093951916b688e39b51320f3566d945b64c5bb \
-    --hash=sha256:70bc72949b9825edc0d31a86142f66f3949c6c7b32fa8b2df13ac4ad5d3a7b25
+ghga-service-commons==7.0.0 \
+    --hash=sha256:7336920f472a202d2afc052ec357473119c7c2a5fac6b1dc9c93a6102e57e95a \
+    --hash=sha256:d7decdb2635c79b2beb53405390ad065734406bb401a4a0d5678ef4163753fd3
     # via
     #   -c lock/requirements-dev.txt
     #   ghga-event-schemas (pyproject.toml)
@@ -35,9 +35,9 @@ idna==3.11 \
     # via
     #   -c lock/requirements-dev.txt
     #   email-validator
-jsonschema==4.25.1 \
-    --hash=sha256:3fba0169e345c7175110351d456342c364814cfcf3b964ba4587f22915230a63 \
-    --hash=sha256:e4a9655ce0da0c0b67a085847e00a3a51449e1157f4f75e9fb5aa545e122eb85
+jsonschema==4.26.0 \
+    --hash=sha256:0c26707e2efad8aa1bfc5b7ce170f3fccc2e4918ff85989ba9ffa9facb2be326 \
+    --hash=sha256:d489f15263b8d200f8387e64b4c3a75f06629559fb73deb8fdfb525f2dab50ce
     # via
     #   -c lock/requirements-dev.txt
     #   ghga-event-schemas (pyproject.toml)
@@ -180,15 +180,15 @@ pydantic-core==2.41.5 \
     # via
     #   -c lock/requirements-dev.txt
     #   pydantic
-pydantic-settings==2.12.0 \
-    --hash=sha256:005538ef951e3c2a68e1c08b292b5f2e71490def8589d4221b95dab00dafcfd0 \
-    --hash=sha256:fddb9fd99a5b18da837b29710391e945b1e30c135477f484084ee513adb93809
+pydantic-settings==2.13.1 \
+    --hash=sha256:b4c11847b15237fb0171e1462bf540e294affb9b86db4d9aa5c01730bdbe4025 \
+    --hash=sha256:d56fd801823dbeae7f0975e1f8c8e25c258eb75d278ea7abb5d9cebb01b56237
     # via
     #   -c lock/requirements-dev.txt
     #   ghga-event-schemas (pyproject.toml)
-python-dotenv==1.2.1 \
-    --hash=sha256:42667e897e16ab0d66954af0e60a9caa94f0fd4ecf3aaf6d2d260eec1aa36ad6 \
-    --hash=sha256:b81ee9561e9ca4004139c6cbba3a238c32b03e4894671e181b671e8cb8425d61
+python-dotenv==1.2.2 \
+    --hash=sha256:1d8214789a24de455a8b8bd8ae6fe3c6b69a5e3d64aa8a8e5d68e694bbcb285a \
+    --hash=sha256:2c371a91fbd7ba082c2c1dc1f8bf89ca22564a087c2c287cd9b662adde799cf3
     # via
     #   -c lock/requirements-dev.txt
     #   pydantic-settings
