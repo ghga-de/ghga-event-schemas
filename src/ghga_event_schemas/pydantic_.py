@@ -653,32 +653,3 @@ class FileAccessionMapping(FileAccessionModel):
         default=..., description="Unique identifier for the file upload"
     )
     model_config = ConfigDict(title="file_accession_mapping")
-
-
-# Lists event schemas (values) by event types (key):
-schema_registry: dict[str, type[BaseModel]] = {
-    "metadata_dataset_deleted": MetadataDatasetID,
-    "metadata_dataset_overview": MetadataDatasetOverview,
-    "metadata_submission_upserted": MetadataSubmissionUpserted,
-    "file_interrogation_success": InterrogationSuccess,
-    "file_interrogation_failure": InterrogationFailure,
-    "file_internally_registered": FileInternallyRegistered,
-    "file_registered_for_download": FileRegisteredForDownload,
-    "non_staged_file_requested": NonStagedFileRequested,
-    "file_staged_for_download": FileStagedForDownload,
-    "file_download_served": FileDownloadServed,
-    "email_notification": EmailNotification,
-    "sms_notification": SmsNotification,
-    "searchable_resource_deleted": SearchableResourceInfo,
-    "searchable_resource_upserted": SearchableResource,
-    "user_id": UserID,
-    "second_factor_recreated": UserID,
-    "access_request_details": AccessRequestDetails,
-    "iva_state_changed": UserIvaState,
-    "iva_send_code": UserIvaCode,
-    "research_data_upload_box": ResearchDataUploadBox,
-    "file_upload_box": FileUploadBox,
-    "file_upload": FileUpload,
-    "audit_record": AuditRecord,
-    "file_accession_mapping": FileAccessionMapping,
-}
