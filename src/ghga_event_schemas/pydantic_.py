@@ -603,6 +603,10 @@ class FileUpload(BaseModel):
         default=...,
         description="The number of bytes in each file part (last part is likely smaller)",
     )
+    failure_reason: str | None = Field(
+        default=None,
+        description="The reason for upload or interrogation failure, if applicable.",
+    )
     model_config = ConfigDict(title="file_upload")
 
 
