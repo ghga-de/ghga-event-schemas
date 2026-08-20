@@ -5,6 +5,8 @@
 
 GHGA Event Schemas: A package that collects schemas used for events exchanged between GHGA service.
 
+> **⚠️ Note:** This repository has been archived and is no longer maintained. The GHGA event schemas are now contained in the [GHGA monorepo](https://github.com/ghga-de/ghga).
+
 ## Description
 
 This package contains a collection of Pydantic-based models used to provide type-checked
