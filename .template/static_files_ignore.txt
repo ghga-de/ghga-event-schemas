@@ -16,4 +16,6 @@ scripts/script_utils/cli.py
 scripts/update_config_docs.py
 scripts/update_openapi_docs.py
 
+.readme_generation/readme_template.md
+
 .pyproject_generation/pyproject_template.toml
