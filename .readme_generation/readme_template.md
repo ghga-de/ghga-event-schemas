@@ -3,9 +3,9 @@
 
 # $title
 
-> **⚠️ Note:** This repository has been archived and is no longer maintained. The GHGA event schemas are now contained in the [GHGA monorepo](https://github.com/ghga-de/ghga).
-
 $summary
+
+> **⚠️ Note:** This repository has been archived and is no longer maintained. The GHGA event schemas are now contained in the [GHGA monorepo](https://github.com/ghga-de/ghga).
 
 ## Description
 
